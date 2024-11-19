@@ -1,6 +1,6 @@
 'use strict';
 
-  // Сохранение сгенертрованного html для страницы
+  // Сохранение сгенерированного html для страницы
   let productsHTML = '';
 
   // Генерация html кода для каждого обьекта
@@ -51,7 +51,7 @@
       Added
     </div>
 
-    <button class="add-to-cart-button button-primary">
+    <button class="add-to-cart-button button-primary js-add-to-cart" data-product-name="${product.name}">
       Add to Cart
     </button>
   </div>`;
@@ -59,3 +59,33 @@
 
 // Помещаем html код на страницу
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
+
+// Добавляем прослушиватель событий ко всем кнопкам
+document.querySelectorAll('.js-add-to-cart')
+  .forEach((button) => {
+    button.addEventListener('click', () => {
+
+      // Получаем название продукта по атрибуту data
+      const productName = button.dataset.productName;
+
+      // Проверяем есть ли товар в карзине
+      let machingItem;
+      cart.forEach((item) => {
+        if (productName === item.productName) {
+          machingItem = item;
+        }
+      });
+
+      // Если товар имееться в козине увеличеваем счетчик
+      if (machingItem) {
+        machingItem.quantity += 1 
+      } else {
+      // Добавляем продукт в карзину
+        cart.push({
+          productName: productName,
+          quantity: 1,
+        });
+      }
+      console.log(cart);
+    });
+  });
