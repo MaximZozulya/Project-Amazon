@@ -51,7 +51,7 @@
       Added
     </div>
 
-    <button class="add-to-cart-button button-primary js-add-to-cart" data-product-name="${product.name}">
+    <button class="add-to-cart-button button-primary js-add-to-cart" data-product-id="${product.id}">
       Add to Cart
     </button>
   </div>`;
@@ -66,12 +66,12 @@ document.querySelectorAll('.js-add-to-cart')
     button.addEventListener('click', () => {
 
       // Получаем название продукта по атрибуту data
-      const productName = button.dataset.productName;
+      const productId = button.dataset.productId;
 
       // Проверяем есть ли товар в карзине
       let machingItem;
       cart.forEach((item) => {
-        if (productName === item.productName) {
+        if (productId === item.productId) {
           machingItem = item;
         }
       });
@@ -82,7 +82,7 @@ document.querySelectorAll('.js-add-to-cart')
       } else {
       // Добавляем продукт в карзину
         cart.push({
-          productName: productName,
+          productId: productId,
           quantity: 1,
         });
       }
